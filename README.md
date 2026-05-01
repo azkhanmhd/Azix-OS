@@ -68,20 +68,21 @@ sudo apt update && sudo apt install -y \
 ### Build steps
 
 ```bash
-# 1. Compile everything
 make
-
-# 2. Copy kernel binary into the ISO staging tree
-cp azix.kernel iso/boot/
-
-# 3. Build the bootable ISO
-grub-mkrescue -o azix_new.iso iso/
 ```
 
-`make` compiles all `.c` and `.asm` files under `kernel/` and `boot/`, links them with `linker.ld` into `azix.kernel` (ELF32 loaded at 1 MiB).  
-`grub-mkrescue` wraps the kernel and `grub.cfg` into a GRUB2 El Torito ISO.
+That's it. The Makefile handles everything in one shot:
+1. Compiles all `.c` and `.asm` files under `kernel/` and `boot/` into `obj/`
+2. Links them with `linker.ld` into `azix.kernel` (ELF32, loaded at 1 MiB)
+3. Copies `azix.kernel` into `iso/boot/` and `grub.cfg` into `iso/boot/grub/`
+4. Runs `grub-mkrescue` to produce the final ISO
 
-The output is **`azix_new.iso`** — a bootable CD-ROM image.
+The output is **`azix.iso`** — a bootable CD-ROM image ready to load in VirtualBox.
+
+To clean all build artifacts:
+```bash
+make clean
+```
 
 ---
 

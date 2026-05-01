@@ -161,5 +161,5 @@ Azix-OS/
 
 ## License
 
-MIT — do whatever you want with it.
+MIT — Do whatever you want with it...
 
